@@ -3,6 +3,7 @@ import os
 import re
 import json
 import urllib
+import config
 from PyQt4 import QtCore, QtGui, QtWebKit
 from bbqlib.file import File
 from bbqlib.environment import Environment
@@ -13,7 +14,7 @@ class Barbacoa():
     def __init__(self):
         self.CURRENT_PATH = os.path.dirname(__file__)
         self.PLUGIN_PATH = self.CURRENT_PATH + '/plugins'
-        self.CONFIG = self.read_config(self.CURRENT_PATH + '/config.json')
+        self.CONFIG = config.CONFIG
         path = self.CURRENT_PATH + '/www/' + self.CONFIG['index']
 
         self.modules = {
@@ -42,15 +43,6 @@ class Barbacoa():
 
         self.view.show()
         self.app.exec_()
-
-    def read_config(self, config_file):
-        with open(config_file, 'r') as f:
-            content = f.read()
-        if content:
-            content = json.loads(content)
-            return content
-
-        return False
 
     def send_callback(self, content):
         content = urllib.quote(content)

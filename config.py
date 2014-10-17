@@ -1,4 +1,4 @@
-{
+CONFIG = {
     "dimensions": {
         "width": 450,
         "height": 250
