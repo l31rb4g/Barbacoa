@@ -10,7 +10,7 @@ class File():
     def read(self, filename):
         with open(filename, 'r') as f:
             content = f.read()
-        self.barbacoa.send_callback(content)
+        self.barbacoa.respond(content)
 
     def write(self, filename, content):
         with open(filename, 'w') as f:
@@ -20,4 +20,4 @@ class File():
         if not selected_dir:
             selected_dir = os.path.expanduser('~')
         path = str(QtGui.QFileDialog().getExistingDirectory(None, "Choose directory", selected_dir))
-        self.barbacoa.send_callback(path)
+        self.barbacoa.respond(path)

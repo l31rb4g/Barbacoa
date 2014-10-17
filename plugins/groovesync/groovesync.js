@@ -1,1 +1,5 @@
-alert('plugin js')
+BarbacoaPlugin({
+
+
+
+});

@@ -1,5 +1,9 @@
 window.$_BBQ = {
+
     sw: 1,
+
+    response: true,
+
     request: function(action, params, callback){
         if (!params) params = [];
         this.callback = callback;
@@ -11,6 +15,7 @@ window.$_BBQ = {
         content = decodeURIComponent(content);
         this.callback(content);
     }
+
 };
 
 window.Barbacoa = {
@@ -22,15 +27,18 @@ window.Barbacoa = {
     File: {
         write: function(filename, content) {
             $_BBQ.request('File.write', [filename, content]);
+            return $_BBQ.response;
         },
-        choose_directory: function(selected_dir, callback) {
-            $_BBQ.request('File.choose_directory', [selected_dir], callback);
+        choose_directory: function(selected_dir) {
+            $_BBQ.request('File.choose_directory', [selected_dir]);
+            return $_BBQ.response;
         }
     },
 
     Environment: {
-        get_user_home: function(callback){
-            $_BBQ.request('Environment.get_user_home', [], callback);
+        get_user_home: function(){
+            $_BBQ.request('Environment.get_user_home', []);
+            return $_BBQ.response;
         }
 
     }

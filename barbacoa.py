@@ -56,12 +56,16 @@ class Barbacoa():
         content = urllib.quote(content)
         self.execute('$_BBQ.execute_callback("' + content + '")')
 
+    def respond(self, response):
+        self.execute('$_BBQ.response = "' + response + '"')
+
     def ready(self):
         with open(self.CURRENT_PATH + '/bbqlib/barbacoa.js', 'r') as fjs:
             js = fjs.read()
         self.execute(js)
 
     def handle_request(self, request):
+        self.execute('$BBQ.response = true')
         request = str(request)
         regex = r'^.*#BBQ[1-2]::([^|]+)\|(.*)\'\)$'
         data = re.findall(regex, request)

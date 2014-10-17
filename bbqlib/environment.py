@@ -8,4 +8,4 @@ class Environment():
 
     def get_user_home(self):
         path = os.path.expanduser('~')
-        self.barbacoa.send_callback(path)
+        self.barbacoa.respond(path)
