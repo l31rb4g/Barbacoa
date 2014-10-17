@@ -37,7 +37,7 @@ window.Barbacoa = {
 
 };
 
+$_BBQ.request('load-plugins');
 if (typeof(BarbacoaReady) == 'function'){
-    $_BBQ.request('load-plugins');
     BarbacoaReady();
 }
