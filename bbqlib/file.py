@@ -1,7 +1,7 @@
 class File():
 
-    def __init__(self, view):
-        self.view = view
+    def __init__(self, barbacoa):
+        self.barbacoa = barbacoa
 
     @staticmethod
     def write(filename, content):
