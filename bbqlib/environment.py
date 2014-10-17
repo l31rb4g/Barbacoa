@@ -1,5 +1,4 @@
 import os
-import urllib
 
 
 class Environment():
@@ -9,5 +8,4 @@ class Environment():
 
     def get_user_home(self):
         path = os.path.expanduser('~')
-        path = urllib.quote(path)
         self.barbacoa.send_callback(path)

@@ -47,6 +47,7 @@ class Barbacoa():
         return False
 
     def send_callback(self, content):
+        content = urllib.quote(content)
         self.execute('$_BBQ.execute_callback("' + content + '")')
 
     def ready(self):
