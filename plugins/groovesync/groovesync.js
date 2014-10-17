@@ -1,1 +1,1 @@
-shark=true
+alert('plugin js')

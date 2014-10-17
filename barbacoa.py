@@ -73,7 +73,8 @@ class Barbacoa():
                 for plugin in self.CONFIG['plugins']:
                     with open(self.PLUGIN_PATH + '/' + plugin + '/' + plugin + '.js') as f:
                         js = f.read()
-                        self.execute(js)
+                    self.execute(js)
+                    self.execute("Barbacoa.plugins.push('" + plugin + "')")
 
             #Environment module
             elif action == 'Environment.get_user_home':
