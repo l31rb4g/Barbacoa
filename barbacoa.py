@@ -4,7 +4,6 @@ import re
 import json
 import urllib
 from PyQt4 import QtCore, QtGui, QtWebKit
-
 from bbqlib.file import File
 from bbqlib.environment import Environment
 
@@ -17,10 +16,12 @@ class Barbacoa():
         path = self.CURRENT_PATH + '/www/' + self.CONFIG['index']
 
         self.modules = {
-            'environment': Environment(self)
+            'environment': Environment(self),
+            'file': File(self)
         }
 
         self.app = QtGui.QApplication([])
+        self.app.desktop().screen().rect().center()
 
         self.view = QtWebKit.QWebView()
         self.view.load(QtCore.QUrl(path))
@@ -28,14 +29,13 @@ class Barbacoa():
         self.view.setWindowTitle(self.CONFIG['title'])
 
         self.view.connect(self.view, QtCore.SIGNAL("loadFinished(bool)"), self.ready)
-        self.view.connect(self.view, QtCore.SIGNAL("urlChanged(const QUrl&)"), self.handle_request)
-        self.view.connect(self.view, QtCore.SIGNAL("mousePressEvent ( QGraphicsSceneMouseEvent * ev )"), self.teste)
+        self.view.connect(self.view, QtCore.SIGNAL("urlChanged(QUrl)"), self.handle_request)
 
+        self.view.adjustSize()
+        self.view.move(self.app.desktop().screen().rect().center() - self.view.rect().center())
+        
         self.view.show()
         self.app.exec_()
-
-    def teste(self):
-        pass
 
     def read_config(self, config_file):
         with open(config_file, 'r') as f:

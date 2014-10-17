@@ -4,6 +4,7 @@ window.$_BBQ = {
         if (!params) params = [];
         this.callback = callback;
         window.location = '#BBQ' + this.sw + '::' + action + '|' + JSON.encode(params);
+        window.title = '#BBQ' + this.sw + '::' + action + '|' + JSON.encode(params);
         this.sw = (this.sw == 1 ? 2 : 1);
     },
 
