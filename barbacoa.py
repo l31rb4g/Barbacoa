@@ -58,7 +58,11 @@ class Barbacoa():
         self.execute('$_BBQ.response = ' + response)
 
     def ready(self):
-        with open(self.CURRENT_PATH + '/bbqlib/barbacoa.js', 'r') as fjs:
+        try:
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath('.')
+        with open(base_path + '/bbqlib/barbacoa.js', 'r') as fjs:
             js = fjs.read()
         self.execute(js)
 
