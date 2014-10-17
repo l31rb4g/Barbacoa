@@ -1,15 +1,15 @@
 #!/usr/bin/python
-
+import PyQt4
 import os
 import re
 import json
-import gtk
-import webkit
 import urllib
 from bbqlib.utils import read_config
 from bbqlib.actions import Actions
 from bbqlib.file import File
 from bbqlib.environment import Environment
+
+from PyQt4 import QtCore, QtGui, QtWebKit
 
 
 def domready(webview, frame):
@@ -37,24 +37,11 @@ if __name__ == '__main__':
     CONFIG = read_config('config.json')
     path = CURRENT_PATH + '/www/' + CONFIG['index']
 
-    view = webkit.WebView()
-    view.open('file://' + path)
 
-    actions = Actions(view)
-    environment = Environment(view)
+    app = QtGui.QApplication([])
+    view = QtWebKit.QWebView()
 
-    sw = gtk.ScrolledWindow()
-    sw.add(view)
+    view.load(QtCore.QUrl('./www/index.html'))
 
-    win = gtk.Window(gtk.WINDOW_TOPLEVEL)
-    win.add(sw)
-    win.show_all()
-    win.set_title(CONFIG['title'])
-    win.resize(CONFIG['dimensions']['width'], CONFIG['dimensions']['height'])
-    win.set_position(gtk.WIN_POS_CENTER_ALWAYS)
-    #win.set_resizable(False)
-
-    view.connect('document-load-finished', domready)
-    view.connect('navigation-policy-decision-requested', handle_request)
-
-    gtk.main()
+    view.show()
+    app.exec_()
