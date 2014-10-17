@@ -39,7 +39,7 @@ if __name__ == '__main__':
     app = QtGui.QApplication([])
 
     view = QtWebKit.QWebView()
-    view.load(QtCore.QUrl(path))
+    view.load(QtCore.QUrl('file://' + path))
     view.show()
 
     app.exec_()
