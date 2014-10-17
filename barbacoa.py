@@ -1,15 +1,13 @@
 #!/usr/bin/python
-import PyQt4
 import os
 import re
 import json
 import urllib
+from PyQt4 import QtCore, QtGui, QtWebKit
+
 from bbqlib.utils import read_config
-from bbqlib.actions import Actions
 from bbqlib.file import File
 from bbqlib.environment import Environment
-
-from PyQt4 import QtCore, QtGui, QtWebKit
 
 
 def domready(webview, frame):
@@ -36,12 +34,12 @@ if __name__ == '__main__':
     CURRENT_PATH = os.path.abspath(os.path.curdir)
     CONFIG = read_config('config.json')
     path = CURRENT_PATH + '/www/' + CONFIG['index']
-
+    environment = Environment()
 
     app = QtGui.QApplication([])
+
     view = QtWebKit.QWebView()
-
     view.load(QtCore.QUrl('./www/index.html'))
-
     view.show()
+
     app.exec_()
