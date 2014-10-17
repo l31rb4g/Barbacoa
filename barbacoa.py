@@ -57,7 +57,7 @@ class Barbacoa():
         self.execute('$_BBQ.response = ' + response)
 
     def ready(self):
-        with open(self.CURRENT_PATH + '/bbqlib/barbacoa_js.py', 'r') as fjs:
+        with open(self.CURRENT_PATH + '/bbqlib/barbacoa_js', 'r') as fjs:
             js = fjs.read()
         self.execute(js)
 
