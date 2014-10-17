@@ -7,4 +7,6 @@ class Environment():
         self.barbacoa = barbacoa
 
     def get_user_home(self):
-        self.barbacoa.send_callback(os.path.expanduser('~'))
+        path = os.path.expanduser('~')
+        path = path.replace('\\', '\\\\')
+        self.barbacoa.send_callback(path)
