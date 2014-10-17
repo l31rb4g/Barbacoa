@@ -8,6 +8,7 @@ window.$_BBQ = {
     },
 
     execute_callback: function(content){
+        content = decodeURIComponent(content);
         this.callback(content);
     }
 };
