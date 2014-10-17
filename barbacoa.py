@@ -24,12 +24,18 @@ class Barbacoa():
 
         self.view = QtWebKit.QWebView()
         self.view.load(QtCore.QUrl(path))
-        self.view.show()
+        self.view.setFixedSize(self.CONFIG['dimensions']['width'], self.CONFIG['dimensions']['height'])
+        self.view.setWindowTitle(self.CONFIG['title'])
 
         self.view.connect(self.view, QtCore.SIGNAL("loadFinished(bool)"), self.ready)
         self.view.connect(self.view, QtCore.SIGNAL("urlChanged(const QUrl&)"), self.handle_request)
+        self.view.connect(self.view, QtCore.SIGNAL("mousePressEvent ( QGraphicsSceneMouseEvent * ev )"), self.teste)
 
+        self.view.show()
         self.app.exec_()
+
+    def teste(self):
+        pass
 
     def read_config(self, config_file):
         with open(config_file, 'r') as f:
