@@ -4,7 +4,7 @@ import re
 import sys
 import json
 import urllib
-import config
+from config import CONFIG
 from PyQt4 import QtCore, QtGui, QtWebKit
 from bbqlib.file import File
 from bbqlib.environment import Environment
@@ -13,10 +13,7 @@ from bbqlib.environment import Environment
 class Barbacoa():
 
     def __init__(self):
-        self.CURRENT_PATH = os.path.dirname(__file__)
-        self.PLUGIN_PATH = self.CURRENT_PATH + '/plugins'
-        self.CONFIG = config.CONFIG
-        path = self.CURRENT_PATH + '/www/' + self.CONFIG['index']
+        path = self.get_file('www/' + CONFIG['index'])
 
         self.modules = {
             'Environment': Environment(self),
@@ -28,11 +25,11 @@ class Barbacoa():
 
         self.view = QtWebKit.QWebView()
         self.view.load(QtCore.QUrl(path))
-        self.view.setFixedSize(self.CONFIG['dimensions']['width'], self.CONFIG['dimensions']['height'])
-        self.view.setWindowTitle(self.CONFIG['title'])
+        self.view.setFixedSize(CONFIG['dimensions']['width'], CONFIG['dimensions']['height'])
+        self.view.setWindowTitle(CONFIG['title'])
 
         self.plugins = {}
-        for plugin in self.CONFIG['plugins']:
+        for plugin in CONFIG['plugins']:
             plugin = str(plugin)
             self.plugins[plugin] = __import__('plugins.' + plugin + '.' + plugin, globals(), locals(), '*', -1)
 
@@ -58,7 +55,7 @@ class Barbacoa():
         self.execute('$_BBQ.response = ' + response)
 
     def ready(self):
-        with open(self.get_file('barbacoa.js'), 'r') as fjs:
+        with open(self.get_file('bbqlib/barbacoa.js'), 'r') as fjs:
             js = fjs.read()
         self.execute(js)
 
@@ -72,8 +69,9 @@ class Barbacoa():
             params = json.loads(urllib.unquote(data[0][1]))
 
             if action == 'load-plugins':
-                for plugin in self.CONFIG['plugins']:
-                    with open(self.PLUGIN_PATH + '/' + plugin + '/' + plugin + '.js') as f:
+                for plugin in CONFIG['plugins']:
+                    plugin_path = self.get_file('plugins/' + plugin + '/' + plugin + '.js')
+                    with open(plugin_path) as f:
                         js = f.read()
                     self.execute('$_BBQ.plugin_being_registred = "' + plugin + '"')
                     self.execute(js)
@@ -103,7 +101,6 @@ class Barbacoa():
             sender.evaluateJavaScript(code)
 
     def get_file(self, filename):
-        filename = 'bbqlib/' + filename
         if hasattr(sys, '_MEIPASS'):
             os.chdir(sys._MEIPASS)
             filename = sys._MEIPASS + '/' + filename
