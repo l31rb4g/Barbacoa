@@ -1,12 +1,12 @@
 {
     "dimensions": {
-        "width": 800,
-        "height": 450
+        "width": 450,
+        "height": 250
     },
 
-    "index": "index.html",
+    "index": "sample.html",
 
-    "title": "Barbacoa API Reference",
+    "title": "Simple HTML5 App",
 
     "plugins": ["groovesync"]
 }
