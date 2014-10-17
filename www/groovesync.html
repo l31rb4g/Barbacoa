@@ -23,12 +23,12 @@ BarbacoaReady = function(){
     Barbacoa.Environment.get_user_home(function(path){
         $('directory').set('text', path);
 
-        /*$('btnSearch').addEvent('click', function(){
+        $('btnSearch').addEvent('click', function(){
             var path = $('directory').get('text');
             Barbacoa.File.choose_directory(path, function(path){
                 $('directory').set('text', path);
             });
-        });*/
+        });
     });
 };
 </script>
