@@ -39,7 +39,7 @@ if __name__ == '__main__':
     app = QtGui.QApplication([])
 
     view = QtWebKit.QWebView()
-    view.load(QtCore.QUrl('./www/index.html'))
+    view.load(QtCore.QUrl(path))
     view.show()
 
     app.exec_()
