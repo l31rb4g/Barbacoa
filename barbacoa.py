@@ -111,7 +111,7 @@ if __name__ == '__main__':
 
     filename = 'bbqlib/barbacoa.js'
     if hasattr(sys, '_MEIPASS'):
-        chdir(sys._MEIPASS)
+        os.chdir(sys._MEIPASS)
         filename = join(sys._MEIPASS, filename)
 
     Barbacoa()
