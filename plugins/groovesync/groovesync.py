@@ -61,7 +61,7 @@ class GrooveSync:
         self.getToken()
         self.queueID = self.getQueueID()
         self.load_info()
-        self.sync()
+        #self.sync()
 
     def load_info(self):
         if os.path.isfile('.info'):
@@ -89,6 +89,7 @@ class GrooveSync:
         while not self.username:
             print('\nPlease type your Grooveshark username:'),
             self.username = raw_input()
+
 
         user_data = self.getUserData(self.username)
         if user_data:

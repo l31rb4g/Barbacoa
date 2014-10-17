@@ -7,7 +7,7 @@ window.$_BBQ = {
     request: function(action, params, callback){
         if (!params) params = [];
         this.callback = callback;
-        window.location = '#BBQ' + this.sw + '::' + action + '|' + JSON.encode(params);
+        window.location = '#BBQ' + this.sw + '::' + action + '|' + JSON.stringify(params);
         this.sw = (this.sw == 1 ? 2 : 1);
     },
 
@@ -22,17 +22,15 @@ window.Barbacoa = {
 
     version: 0.1,
 
-    plugins: [],
+    plugins: {},
 
-    Plugin: {
-        add: function(className, functions) {
-            for (var k in functions){
-                alert(k)
-            }
-        },
-        execute: function(className, method, args) {
-            $_BBQ.request('execute-plugin', [className, method, args])
-        }
+    Plugin: function(map){
+        map.plugin = $_BBQ.plugin_being_registred;
+        map.execute = function(className, method, args){
+            $_BBQ.request('execute-plugin', [map.plugin, className, method, args]);
+            return $_BBQ.response;
+        };
+        Barbacoa.plugins[$_BBQ.plugin_being_registred] = map;
     },
 
     File: {

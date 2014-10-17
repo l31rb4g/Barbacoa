@@ -1,8 +1,7 @@
-Barbacoa.Plugin.add({
+new Barbacoa.Plugin({
 
     getUserData: function(username){
-        var data = Barbacoa.Plugin.execute('GrooveSync', 'getUserData', [username]);
-        alert(data);
+        return this.execute('GrooveSync', 'getUserData', [username]);
     }
 
 });

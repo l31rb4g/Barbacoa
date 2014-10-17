@@ -57,7 +57,12 @@ class Barbacoa():
         self.execute('$_BBQ.execute_callback("' + content + '")')
 
     def respond(self, response):
-        self.execute('$_BBQ.response = "' + response + '"')
+        if type(response) is bool:
+            response = str(response).lower()
+        else:
+            response = '"' + str(response) + '"'
+
+        self.execute('$_BBQ.response = ' + response)
 
     def ready(self):
         with open(self.CURRENT_PATH + '/bbqlib/barbacoa.js', 'r') as fjs:
@@ -77,11 +82,15 @@ class Barbacoa():
                 for plugin in self.CONFIG['plugins']:
                     with open(self.PLUGIN_PATH + '/' + plugin + '/' + plugin + '.js') as f:
                         js = f.read()
+                    self.execute('$_BBQ.plugin_being_registred = "' + plugin + '"')
                     self.execute(js)
-                    self.execute("Barbacoa.plugins.push('" + plugin + "')")
 
             elif action == 'execute-plugin':
-                pass
+                klass = getattr(self.plugins[params[0]], params[1])
+                instance = klass()
+                method = getattr(instance, params[2])
+                r = method(*params[3])
+                self.respond(r)
 
             #Environment module
             elif action == 'Environment.get_user_home':
