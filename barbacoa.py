@@ -32,7 +32,7 @@ def handle_request(webview, frame, request, action, decision):
 
 if __name__ == '__main__':
     CURRENT_PATH = os.path.abspath(os.path.curdir)
-    CONFIG = read_config('config.json')
+    CONFIG = read_config(CURRENT_PATH + '/config.json')
     path = CURRENT_PATH + '/www/' + CONFIG['index']
     environment = Environment()
 
