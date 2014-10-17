@@ -4,7 +4,6 @@ window.$_BBQ = {
         if (!params) params = [];
         this.callback = callback;
         window.location = '#BBQ' + this.sw + '::' + action + '|' + JSON.encode(params);
-        window.title = '#BBQ' + this.sw + '::' + action + '|' + JSON.encode(params);
         this.sw = (this.sw == 1 ? 2 : 1);
     },
 
@@ -21,6 +20,9 @@ window.Barbacoa = {
     File: {
         write: function(filename, content) {
             $_BBQ.request('File.write', [filename, content]);
+        },
+        choose_directory: function(selected_dir, callback) {
+            $_BBQ.request('File.choose_directory', [selected_dir], callback);
         }
     },
 

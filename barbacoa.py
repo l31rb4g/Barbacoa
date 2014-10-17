@@ -16,8 +16,8 @@ class Barbacoa():
         path = self.CURRENT_PATH + '/www/' + self.CONFIG['index']
 
         self.modules = {
-            'environment': Environment(self),
-            'file': File(self)
+            'Environment': Environment(self),
+            'File': File(self)
         }
 
         self.app = QtGui.QApplication([])
@@ -33,7 +33,7 @@ class Barbacoa():
 
         self.view.adjustSize()
         self.view.move(self.app.desktop().screen().rect().center() - self.view.rect().center())
-        
+
         self.view.show()
         self.app.exec_()
 
@@ -62,11 +62,15 @@ class Barbacoa():
             action = data[0][0]
             params = json.loads(urllib.unquote(data[0][1]))
 
+            #Environment module
             if action == 'Environment.get_user_home':
-                self.modules['environment'].get_user_home(*params)
+                self.modules['Environment'].get_user_home(*params)
 
+            #File module
             elif action == 'File.write':
-                File.write(*params)
+                self.modules['Environment'].write(*params)
+            elif action == 'File.choose_directory':
+                self.modules['File'].choose_directory(*params)
 
     def execute(self, code):
         sender = QtWebKit.QWebView.sender(self.view)
