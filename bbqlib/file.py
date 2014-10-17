@@ -19,5 +19,5 @@ class File():
     def choose_directory(self, selected_dir):
         if not selected_dir:
             selected_dir = os.path.expanduser('~')
-        path = QtGui.QFileDialog().getExistingDirectory(None, "Choose directory", selected_dir)
+        path = str(QtGui.QFileDialog().getExistingDirectory(None, "Choose directory", selected_dir))
         self.barbacoa.send_callback(path)
