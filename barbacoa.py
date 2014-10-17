@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import os
 import re
+import sys
 import json
 import urllib
 import config
@@ -57,7 +58,7 @@ class Barbacoa():
         self.execute('$_BBQ.response = ' + response)
 
     def ready(self):
-        with open(self.CURRENT_PATH + '/bbqlib/barbacoa_js', 'r') as fjs:
+        with open(self.CURRENT_PATH + '/bbqlib/barbacoa.js', 'r') as fjs:
             js = fjs.read()
         self.execute(js)
 
@@ -104,3 +105,9 @@ class Barbacoa():
 
 if __name__ == '__main__':
     Barbacoa()
+
+
+filename = 'bbqlib/barbacoa.js'
+if hasattr(sys, '_MEIPASS'):
+    chdir(sys._MEIPASS)
+    filename = join(sys._MEIPASS, filename)
