@@ -4,7 +4,9 @@
         "height": 450
     },
 
-    "index": "groovesync.html",
+    "index": "index.html",
 
-    "title": "Barbacoa API Reference"
+    "title": "Barbacoa API Reference",
+
+    "plugins": ["groovesync"]
 }

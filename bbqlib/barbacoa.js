@@ -17,6 +17,8 @@ window.Barbacoa = {
 
     version: 0.1,
 
+    plugins: [],
+
     File: {
         write: function(filename, content) {
             $_BBQ.request('File.write', [filename, content]);
@@ -36,5 +38,6 @@ window.Barbacoa = {
 };
 
 if (typeof(BarbacoaReady) == 'function'){
+    $_BBQ.request('load-plugins');
     BarbacoaReady();
 }

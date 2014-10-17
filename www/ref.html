@@ -1,0 +1,45 @@
+<html>
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
+</head>
+<body>
+
+<h2>Barbacoa API Reference</h2>
+<br/>
+
+<div class="reference">
+    <h4>Environment</h4>
+    <ul>
+        <li><a href="javascript:;">get_user_home</a></li>
+    </ul>
+</div>
+
+<a href="http://www.google.com.br">teste</a>
+
+<script type="text/javascript">
+BarbacoaReady = function(){
+    $$('div.reference ul li').each(function(el){
+        el.addEvent('click', function(){
+            var cl = this.getParent('div').getElement('h4').get('text');
+            var action = this.get('text');
+
+            if (cl == 'Environment'){
+                if (action == 'get_user_home'){
+                    Barbacoa.Environment.get_user_home(function(path){
+                        alert(path);
+                    });
+                }
+            }
+        });
+    });
+
+    /*$('btnTest').addEvent('click', function(){
+        Barbacoa.Environment.get_user_home(function(home){
+            Barbacoa.File.write(home + '/asasas', 'ééé');
+        });
+    });*/
+};
+</script>
+
+</body>
+</html>

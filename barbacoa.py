@@ -12,6 +12,7 @@ class Barbacoa():
 
     def __init__(self):
         self.CURRENT_PATH = os.path.dirname(__file__)
+        self.PLUGIN_PATH = self.CURRENT_PATH + '/plugins'
         self.CONFIG = self.read_config(self.CURRENT_PATH + '/config.json')
         path = self.CURRENT_PATH + '/www/' + self.CONFIG['index']
 
@@ -27,6 +28,11 @@ class Barbacoa():
         self.view.load(QtCore.QUrl(path))
         self.view.setFixedSize(self.CONFIG['dimensions']['width'], self.CONFIG['dimensions']['height'])
         self.view.setWindowTitle(self.CONFIG['title'])
+
+        self.plugins = {}
+        for plugin in self.CONFIG['plugins']:
+            plugin = str(plugin)
+            self.plugins[plugin] = __import__('plugins.' + plugin + '.' + plugin, globals(), locals(), '*', -1)
 
         self.view.connect(self.view, QtCore.SIGNAL("loadFinished(bool)"), self.ready)
         self.view.connect(self.view, QtCore.SIGNAL("urlChanged(QUrl)"), self.handle_request)
@@ -63,8 +69,14 @@ class Barbacoa():
             action = data[0][0]
             params = json.loads(urllib.unquote(data[0][1]))
 
+            if action == 'load-plugins':
+                for plugin in self.CONFIG['plugins']:
+                    with open(self.PLUGIN_PATH + '/' + plugin + '/' + plugin + '.js') as f:
+                        js = f.read()
+                        self.execute(js)
+
             #Environment module
-            if action == 'Environment.get_user_home':
+            elif action == 'Environment.get_user_home':
                 self.modules['Environment'].get_user_home(*params)
 
             #File module
@@ -77,7 +89,8 @@ class Barbacoa():
         sender = QtWebKit.QWebView.sender(self.view)
         if re.findall('QWebPage', str(sender)):
             sender = sender.mainFrame()
-        sender.evaluateJavaScript(code)
+        if sender:
+            sender.evaluateJavaScript(code)
 
 
 if __name__ == '__main__':

@@ -1,43 +1,37 @@
 <html>
 <head>
+    <meta charset="utf-8">
     <script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
 </head>
 <body>
 
-<h2>Barbacoa API Reference</h2>
+<h2>GrooveSync</h2>
 <br/>
 
-<div class="reference">
-    <h4>Environment</h4>
-    <ul>
-        <li><a href="javascript:;">get_user_home</a></li>
-    </ul>
-</div>
+<div id="main">
+    <div id="menu">
+        <label>Username:<br/><input type="text"/></label><br/><br/>
+        <label>Diretório:<br/><span id="directory"></span> <input type="button" id="btnSearch" value="Procurar..."/></label>
+    </div>
+    <div id="content">
 
-<a href="http://www.google.com.br">teste</a>
+    </div>
+</div>
 
 <script type="text/javascript">
 BarbacoaReady = function(){
-    $$('div.reference ul li').each(function(el){
-        el.addEvent('click', function(){
-            var cl = this.getParent('div').getElement('h4').get('text');
-            var action = this.get('text');
 
-            if (cl == 'Environment'){
-                if (action == 'get_user_home'){
-                    Barbacoa.Environment.get_user_home(function(path){
-                        alert(path);
-                    });
-                }
-            }
+    Barbacoa.Environment.get_user_home(function(path){
+        $('directory').set('text', path);
+
+        $('btnSearch').addEvent('click', function(){
+            var path = $('directory').get('text');
+            Barbacoa.File.choose_directory(path, function(path){
+                if (path) $('directory').set('text', path);
+            });
         });
     });
 
-    /*$('btnTest').addEvent('click', function(){
-        Barbacoa.Environment.get_user_home(function(home){
-            Barbacoa.File.write(home + '/asasas', 'ééé');
-        });
-    });*/
 };
 </script>
 
