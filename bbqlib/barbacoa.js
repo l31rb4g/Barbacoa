@@ -24,6 +24,17 @@ window.Barbacoa = {
 
     plugins: [],
 
+    Plugin: {
+        add: function(className, functions) {
+            for (var k in functions){
+                alert(k)
+            }
+        },
+        execute: function(className, method, args) {
+            $_BBQ.request('execute-plugin', [className, method, args])
+        }
+    },
+
     File: {
         write: function(filename, content) {
             $_BBQ.request('File.write', [filename, content]);

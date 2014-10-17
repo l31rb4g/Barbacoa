@@ -80,6 +80,9 @@ class Barbacoa():
                     self.execute(js)
                     self.execute("Barbacoa.plugins.push('" + plugin + "')")
 
+            elif action == 'execute-plugin':
+                pass
+
             #Environment module
             elif action == 'Environment.get_user_home':
                 self.modules['Environment'].get_user_home(*params)
