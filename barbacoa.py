@@ -60,7 +60,7 @@ class Barbacoa():
         if type(response) is bool:
             response = str(response).lower()
         else:
-            response = '"' + str(response) + '"'
+            response = '"' + urllib.quote(str(response)) + '"'
 
         self.execute('$_BBQ.response = ' + response)
 

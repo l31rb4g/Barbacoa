@@ -14,6 +14,10 @@ window.$_BBQ = {
     execute_callback: function(content){
         content = decodeURIComponent(content);
         this.callback(content);
+    },
+
+    getResponse: function(){
+        return decodeURIComponent(this.response);
     }
 
 };
@@ -47,7 +51,7 @@ window.Barbacoa = {
     Environment: {
         get_user_home: function(){
             $_BBQ.request('Environment.get_user_home', []);
-            return $_BBQ.response;
+            return $_BBQ.getResponse();
         }
 
     }
