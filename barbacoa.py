@@ -58,11 +58,7 @@ class Barbacoa():
         self.execute('$_BBQ.response = ' + response)
 
     def ready(self):
-        try:
-            base_path = sys._MEIPASS
-        except Exception:
-            base_path = os.path.abspath('.')
-        with open(base_path + '/bbqlib/barbacoa.js', 'r') as fjs:
+        with open(self.get_file('barbacoa.js'), 'r') as fjs:
             js = fjs.read()
         self.execute(js)
 
@@ -106,12 +102,14 @@ class Barbacoa():
         if sender:
             sender.evaluateJavaScript(code)
 
+    def get_file(self, filename):
+        filename = 'bbqlib/' + filename
+        if hasattr(sys, '_MEIPASS'):
+            os.chdir(sys._MEIPASS)
+            filename = sys._MEIPASS + '/' + filename
+        return filename
+
 
 if __name__ == '__main__':
 
     Barbacoa()
-
-
-if hasattr(sys, '_MEIPASS'):
-    os.chdir(sys._MEIPASS)
-    filename = sys._MEIPASS + '/barbacoa.js'
