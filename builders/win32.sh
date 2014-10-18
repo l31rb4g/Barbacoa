@@ -23,6 +23,7 @@ trees=$(echo $trees | sed "s/\//\\\\\//g")
 
 $_python $_pyinstaller barbacoa.py \
     --onefile \
+    --windowed \
     --specpath="$_build_path" \
     --distpath="$_build_path/dist" \
     --workpath="$_build_path/build" \
