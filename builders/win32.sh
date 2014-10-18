@@ -19,6 +19,7 @@ trees=''
 for p in ${_include_paths[@]}; do
     trees=$trees"Tree('../"$p"', prefix='"$p"'), "
 done
+trees=$(echo $trees | sed 's/\//\\\//')
 
 $_python $_pyinstaller barbacoa.py \
     --onefile \
