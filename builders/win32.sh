@@ -33,7 +33,10 @@ $_python $_pyinstaller barbacoa.py \
 exp='s/exe = EXE(pyz,/exe = EXE(pyz, '$trees'/'
 sed -i "$exp" $_build_path/barbacoa.spec
 
-$_python $_pyinstaller $_build_path/barbacoa.spec
+$_python $_pyinstaller $_build_path/barbacoa.spec \
+    --specpath="$_build_path" \
+    --distpath="$_build_path/dist" \
+    --workpath="$_build_path/build"
 
 
 echo -e '\n\n'
