@@ -5,6 +5,13 @@ _pyinstaller='C:/PyInstaller-2.1/pyinstaller.py'
 _build_path='BUILD'
 _include_paths=(bbqlib plugins www)
 
+echo '\n\n'
+echo '+-----------------------------+'
+echo '| Starting build for win32    |'
+echo '+-----------------------------+'
+echo '\n\n'
+
+
 rm -rf $_build_path
 mkdir $_build_path
 
@@ -27,6 +34,7 @@ sed 's/exe = EXE(pyz,/exe = EXE(pyz, '$trees'/' $_build_path/barbacoa-orig.spec 
 $_python $_pyinstaller barbacoa.py $_build_path/barbacoa.spec
 
 
-echo '+--------------------------+'
-echo '| Build finished!          |'
-echo '+--------------------------+'
+echo '\n\n'
+echo '+-----------------------------+'
+echo '| Build finished!             |'
+echo '+-----------------------------+'
