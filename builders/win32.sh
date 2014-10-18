@@ -26,6 +26,7 @@ $_python $_pyinstaller barbacoa.py \
     --specpath="$_build_path" \
     --distpath="$_build_path/dist" \
     --workpath="$_build_path/build" \
+    --hidden-import=plugins.grooveshark.grooveshark,
     --hidden-import=uuid \
     --hidden-import=gzip
 	
