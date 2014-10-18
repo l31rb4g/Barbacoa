@@ -13,7 +13,8 @@ done
 rm -rf $_build_path
 mkdir $_build_path
 
-sed 's/exe = EXE(pyz,/exe = EXE(pyz, '$trees'/' BUILD/barbacoa.spec
+mv $_build_path/barbacoa.spec $_build_path/barbacoa-orig.spec
+sed 's/exe = EXE(pyz,/exe = EXE(pyz, '$trees'/' $_build_path/barbacoa-orig.spec > $_build_path/barbacoa.spec
 
 $_python $_pyinstaller barbacoa.py \
     --onefile \
