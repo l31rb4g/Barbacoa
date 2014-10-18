@@ -29,8 +29,7 @@ $_python $_pyinstaller barbacoa.py \
     --hidden-import=uuid \
     --hidden-import=gzip
 	
-mv $_build_path/barbacoa.spec $_build_path/barbacoa-orig.spec
-exp='s/exe = EXE(pyz,/exe = EXE(pyz, '$trees'/' $_build_path/barbacoa-orig.spec
+exp='s/exe = EXE(pyz,/exe = EXE(pyz, '$trees'/'
 sed -i "$exp" $_build_path/barbacoa.spec
 
 $_python $_pyinstaller barbacoa.py $_build_path/barbacoa.spec
