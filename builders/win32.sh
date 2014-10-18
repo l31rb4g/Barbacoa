@@ -17,7 +17,7 @@ mkdir $_build_path
 
 trees=''
 for p in ${_include_paths[@]}; do
-    trees=$trees"Tree('../"$p"', prefix='"$p"'), "
+    trees=$trees"Tree('"$p"', prefix='"$p"'), "
 done
 trees=$(echo $trees | sed "s/\//\\\\\//g")
 
