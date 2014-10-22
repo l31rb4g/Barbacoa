@@ -1,7 +1,5 @@
 #!/bin/bash
 
-_include_paths=(bbqlib plugins www)
-
 if [ "$1" == --'windows' ]; then
     is_windows=1
 fi
@@ -25,15 +23,6 @@ echo -e '\n\n'
 
 rm -rf $_build_path
 mkdir -p $_build_path
-
-trees=''
-for p in ${_include_paths[@]}; do
-    trees=$trees"Tree('"$p"', prefix='"$p"'), "
-done
-trees=$(echo $trees | sed "s/\//\\\\\//g")
-
-exp='s/exe = EXE(pyz,/exe = EXE(pyz, '$trees'/'
-sed -i "$exp" $_build_path/barbacoa.spec
 
 $_python $_pyinstaller barbacoa.spec \
     --specpath="$_build_path" \

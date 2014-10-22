@@ -19,9 +19,9 @@ pyz = PYZ(
 
 exe = EXE(
     pyz,
-    Tree('bbqlib', 'bbqlib'),
-    Tree('plugins', 'plugins'),
-    Tree('www', 'www'),
+    Tree('bbqlib', prefix='bbqlib'),
+    Tree('plugins', prefix='plugins'),
+    Tree('www', prefix='www'),
     a.scripts,
     a.binaries,
     a.zipfiles,
