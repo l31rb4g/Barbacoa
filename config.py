@@ -4,9 +4,9 @@ CONFIG = {
         "height": 250
     },
 
-    "index": "sample.html",
+    "index": "index.html",
 
     "title": "Simple HTML5 App",
 
-    "plugins": ["groovesync"]
+    "plugins": []
 }

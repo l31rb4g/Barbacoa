@@ -1,48 +1,14 @@
 <html>
 <head>
-    <meta charset="utf-8">
-    <script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
+
 </head>
 <body>
 
-<h2>GrooveSync</h2>
-<br/>
+<h2>Simple HTML5 App</h2>
 
-<div id="main">
-    <div id="menu">
-        <label>Username:<br/><input type="text" id="username"/></label><br/><br/>
-        <label>Diretório:<br/><span id="directory"></span> <input type="button" id="btnSearchDirectory" value="Procurar..."/></label>
-        <br/>
-        <input type="button" id="ok" value="OK"/>
-    </div>
-    <div id="content">
+<p>Hello! This app was written in HTML5.</p>
 
-    </div>
-</div>
-
-<script type="text/javascript">
-BarbacoaReady = function(){
-
-    var path = Barbacoa.Environment.get_user_home();
-    $('directory').set('text', path);
-
-    $('btnSearchDirectory').addEvent('click', function(){
-        var path = $('directory').get('text');
-        var new_path = Barbacoa.File.choose_directory(path);
-        if (new_path) $('directory').set('text', new_path);
-    });
-
-    $('ok').addEvent('click', function(){
-        var user_data = Barbacoa.plugins.groovesync.getUserData($('username').get('value'));
-        if (user_data) {
-            alert(user_data);
-        } else {
-            alert('Usuário não encontrado');
-        }
-    });
-
-};
-</script>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas blandit ut velit et elementum. Etiam efficitur augue hendrerit, aliquam lectus eget, semper nibh. Aliquam erat volutpat. Duis nec mauris augue. Nullam egestas tristique turpis in elementum. Nullam sagittis mauris tortor, nec consectetur velit aliquam id. Suspendisse potenti. Donec in quam urna. Suspendisse semper neque sed sapien mollis dignissim. Aliquam erat volutpat. Mauris efficitur magna vel quam tempus bibendum. Donec mollis tortor quis cursus venenatis.</p>
 
 </body>
 </html>

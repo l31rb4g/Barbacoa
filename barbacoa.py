@@ -12,7 +12,14 @@ from bbqlib.environment import Environment
 
 class Barbacoa():
 
+    version = '0.1.0'
+
     def __init__(self):
+
+        if '--version' in sys.argv:
+            print(self.version)
+            return
+
         path = self.get_file('www/' + CONFIG['index'])
 
         self.modules = {
@@ -31,7 +38,8 @@ class Barbacoa():
         self.plugins = {}
         for plugin in CONFIG['plugins']:
             plugin = str(plugin)
-            self.plugins[plugin] = __import__('plugins.' + plugin + '.' + plugin, globals(), locals(), '*', -1)
+            if plugin:
+                self.plugins[plugin] = __import__('plugins.' + plugin + '.' + plugin, globals(), locals(), '*', -1)
 
         self.view.connect(self.view, QtCore.SIGNAL("loadFinished(bool)"), self.ready)
         self.view.connect(self.view, QtCore.SIGNAL("urlChanged(QUrl)"), self.handle_request)
@@ -70,11 +78,12 @@ class Barbacoa():
 
             if action == 'load-plugins':
                 for plugin in CONFIG['plugins']:
-                    plugin_path = self.get_file('plugins/' + plugin + '/' + plugin + '.js')
-                    with open(plugin_path) as f:
-                        js = f.read()
-                    self.execute('$_BBQ.plugin_being_registred = "' + plugin + '"')
-                    self.execute(js)
+                    if plugin:
+                        plugin_path = self.get_file('plugins/' + plugin + '/' + plugin + '.js')
+                        with open(plugin_path) as f:
+                            js = f.read()
+                        self.execute('$_BBQ.plugin_being_registred = "' + plugin + '"')
+                        self.execute(js)
 
             elif action == 'execute-plugin':
                 klass = getattr(self.plugins[params[0]], params[1])
