@@ -10,9 +10,9 @@ class BarbacoaAdmin():
         self.barbacoa_root = os.path.dirname(__file__)
         self.project_root = os.path.abspath(os.path.curdir)
 
-    def create(self, name):
-        if name:
-            self.project_root = os.path.join(self.project_root, name)
+    def create(self, path):
+        if path:
+            self.project_root = path
             shutil.copytree(self.barbacoa_root + '/plugins', self.project_root + '/plugins')
             shutil.copytree(self.barbacoa_root + '/www', self.project_root + '/www')
 
@@ -36,8 +36,8 @@ if __name__ == '__main__':
                 print('Type the name for the new Barbacoa project:'),
                 name = raw_input()
             os.mkdir(name)
-            bbq.create(name)
+            bbq.create(os.path.abspath(name))
 
         elif sys.argv[1] == 'init':
-            name = os.path.basename(os.path.abspath(os.path.curdir))
+            name = os.path.abspath(os.path.curdir)
             bbq.create(name)
