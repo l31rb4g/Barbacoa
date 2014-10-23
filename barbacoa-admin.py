@@ -17,8 +17,12 @@ class BarbacoaAdmin():
             self.project_root = new_root
             shutil.copytree(self.barbacoa_root + '/plugins', self.project_root + '/plugins')
             shutil.copytree(self.barbacoa_root + '/www', self.project_root + '/www')
+
             shutil.copyfile(self.barbacoa_root + '/bbqlib/manage.py', self.project_root + '/manage.py')
             os.chmod(self.project_root + '/manage.py', 0755)
+            path = (os.path.dirname(os.path.abspath(__file__)) + '/bbqlib').replace('/', '\\/')
+            os.popen("sed -i 's/bbqpath = None/bbqpath = \"" + path + "\"/' " + self.project_root + '/manage.py')
+
             shutil.copyfile(self.barbacoa_root + '/bbqlib/config.py', self.project_root + '/config.py')
             print('[Barbacoa] New Barbacoa project started on ' + self.project_root)
 

@@ -2,7 +2,8 @@
 import os
 import sys
 
-bbqpath = '/home/l31rb4g/www/Barbacoa/bbqlib'
+bbqpath = None
+
 if bbqpath not in sys.path:
     sys.path.append(bbqpath)
 
