@@ -9,5 +9,5 @@ locals()['self'].CONFIG = {
 
     "title": "Simple HTML5 App",
 
-    "plugins": []
+    "plugins": ['example_plugin']
 }
