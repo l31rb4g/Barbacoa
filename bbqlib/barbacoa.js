@@ -40,11 +40,11 @@ window.Barbacoa = {
     File: {
         write: function(filename, content) {
             $_BBQ.request('File.write', [filename, content]);
-            return $_BBQ.response;
+            return $_BBQ.getResponse();
         },
         choose_directory: function(selected_dir) {
             $_BBQ.request('File.choose_directory', [selected_dir]);
-            return $_BBQ.response;
+            return $_BBQ.getResponse();
         }
     },
 
