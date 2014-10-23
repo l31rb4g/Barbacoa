@@ -42,8 +42,9 @@ class Barbacoa():
         for plugin in self.CONFIG['plugins']:
             plugin = str(plugin)
             if plugin:
-                #self.plugins[plugin] = __import__('plugins.' + plugin + '.' + plugin, globals(), locals(), '*', -1)
-                self.plugins[plugin] = imp.load_source(plugin, self.project_root + '/plugins/' + plugin + '/' + plugin + '.py')
+                plugin_py = self.project_root + '/plugins/' + plugin + '/' + plugin + '.py'
+                if os.path.exists(plugin_py):
+                    self.plugins[plugin] = imp.load_source(plugin, plugin_py)
 
         self.view.connect(self.view, QtCore.SIGNAL("loadFinished(bool)"), self.ready)
         self.view.connect(self.view, QtCore.SIGNAL("urlChanged(QUrl)"), self.handle_request)
@@ -84,10 +85,11 @@ class Barbacoa():
                 for plugin in self.CONFIG['plugins']:
                     if plugin:
                         plugin_path = self.get_file(self.project_root + '/plugins/' + plugin + '/' + plugin + '.js')
-                        with open(plugin_path) as f:
-                            js = f.read()
-                        self.execute('$_BBQ.plugin_being_registred = "' + plugin + '"')
-                        self.execute(js)
+                        if plugin_path:
+                            with open(plugin_path) as f:
+                                js = f.read()
+                            self.execute('$_BBQ.plugin_being_registred = "' + plugin + '"')
+                            self.execute(js)
 
             elif action == 'execute-plugin':
                 klass = getattr(self.plugins[params[0]], params[1])
@@ -119,7 +121,11 @@ class Barbacoa():
         if hasattr(sys, '_MEIPASS'):
             os.chdir(sys._MEIPASS)
             filename = sys._MEIPASS + '/' + filename
-        return os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
+
+        path = os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
+        if os.path.exists(path):
+            return path
+        return False
 
 
 if __name__ == '__main__':
