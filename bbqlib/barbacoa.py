@@ -4,6 +4,7 @@ import re
 import sys
 import json
 import urllib
+import imp
 from PyQt4 import QtCore, QtGui, QtWebKit
 from api.file import File
 from api.environment import Environment
@@ -42,7 +43,7 @@ class Barbacoa():
             plugin = str(plugin)
             if plugin:
                 #self.plugins[plugin] = __import__('plugins.' + plugin + '.' + plugin, globals(), locals(), '*', -1)
-                execfile(self.project_root + '/plugins/' + plugin + '/' + plugin + '.py', globals(), locals())
+                self.plugins[plugin] = imp.load_source(plugin, self.project_root + '/plugins/' + plugin + '/' + plugin + '.py')
 
         self.view.connect(self.view, QtCore.SIGNAL("loadFinished(bool)"), self.ready)
         self.view.connect(self.view, QtCore.SIGNAL("urlChanged(QUrl)"), self.handle_request)
@@ -82,7 +83,7 @@ class Barbacoa():
             if action == 'load-plugins':
                 for plugin in self.CONFIG['plugins']:
                     if plugin:
-                        plugin_path = self.get_file('plugins/' + plugin + '/' + plugin + '.js')
+                        plugin_path = self.get_file(self.project_root + '/plugins/' + plugin + '/' + plugin + '.js')
                         with open(plugin_path) as f:
                             js = f.read()
                         self.execute('$_BBQ.plugin_being_registred = "' + plugin + '"')
@@ -92,6 +93,8 @@ class Barbacoa():
                 klass = getattr(self.plugins[params[0]], params[1])
                 instance = klass()
                 method = getattr(instance, params[2])
+                if not params[3]:
+                    params[3] = []
                 r = method(*params[3])
                 self.respond(r)
 
@@ -120,4 +123,4 @@ class Barbacoa():
 
 
 if __name__ == '__main__':
-    Barbacoa()
+    Barbacoa('.')

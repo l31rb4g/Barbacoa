@@ -9,13 +9,14 @@
 
 <p>Hello! This app was written in HTML5.</p>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas blandit ut velit et elementum. Etiam efficitur augue hendrerit, aliquam lectus eget, semper nibh. Aliquam erat volutpat. Duis nec mauris augue. Nullam egestas tristique turpis in elementum. Nullam sagittis mauris tortor, nec consectetur velit aliquam id. Suspendisse potenti. Donec in quam urna. Suspendisse semper neque sed sapien mollis dignissim. Aliquam erat volutpat. Mauris efficitur magna vel quam tempus bibendum. Donec mollis tortor quis cursus venenatis.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas blandit ut velit et elementum. Etiam efficitur augue hendrerit, aliquam lectus eget, semper nibh. Aliquam erat volutpat. Duis nec mauris augue. Nullam egestas tristique turpis in elementum.</p>
+
+<p>My IP: <span id="my_ip"></span></p>
 
 <script type="text/javascript">
 BarbacoaReady = function(){
-
-    Barbacoa.Plugins.example_plugin.get_ip();
-
+    var my_ip = Barbacoa.Plugins.example_plugin.get_ip();
+    document.getElementById('my_ip').innerHTML = my_ip;
 };
 </script>
 

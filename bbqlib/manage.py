@@ -17,3 +17,6 @@ if __name__ == '__main__':
         if sys.argv[1] == 'run':
             project_root = os.path.abspath(os.path.dirname(__file__))
             Barbacoa(project_root)
+
+        else:
+            print('Unknown command: ' + sys.argv[1])
