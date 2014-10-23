@@ -4,23 +4,25 @@ import re
 import sys
 import json
 import urllib
-from config import CONFIG
 from PyQt4 import QtCore, QtGui, QtWebKit
-from bbqlib.file import File
-from bbqlib.environment import Environment
+from api.file import File
+from api.environment import Environment
 
 
 class Barbacoa():
 
-    version = '0.1.0'
+    version = '0.2.0'
 
-    def __init__(self):
+    def __init__(self, project_root):
+        self.project_root = project_root
+        self.CONFIG = {}
+        execfile(project_root + '/config.py')
 
         if '--version' in sys.argv:
             print(self.version)
             return
 
-        path = self.get_file('www/' + CONFIG['index'])
+        path = self.get_file(project_root + '/www/' + self.CONFIG['index'])
 
         self.modules = {
             'Environment': Environment(self),
@@ -32,11 +34,11 @@ class Barbacoa():
 
         self.view = QtWebKit.QWebView()
         self.view.load(QtCore.QUrl(path))
-        self.view.setFixedSize(CONFIG['dimensions']['width'], CONFIG['dimensions']['height'])
-        self.view.setWindowTitle(CONFIG['title'])
+        self.view.setFixedSize(self.CONFIG['dimensions']['width'], self.CONFIG['dimensions']['height'])
+        self.view.setWindowTitle(self.CONFIG['title'])
 
         self.plugins = {}
-        for plugin in CONFIG['plugins']:
+        for plugin in self.CONFIG['plugins']:
             plugin = str(plugin)
             if plugin:
                 self.plugins[plugin] = __import__('plugins.' + plugin + '.' + plugin, globals(), locals(), '*', -1)
@@ -63,7 +65,7 @@ class Barbacoa():
         self.execute('$_BBQ.response = ' + response)
 
     def ready(self):
-        with open(self.get_file('bbqlib/barbacoa.js'), 'r') as fjs:
+        with open(self.get_file('barbacoa.js'), 'r') as fjs:
             js = fjs.read()
         self.execute(js)
 
@@ -77,7 +79,7 @@ class Barbacoa():
             params = json.loads(urllib.unquote(data[0][1]))
 
             if action == 'load-plugins':
-                for plugin in CONFIG['plugins']:
+                for plugin in self.CONFIG['plugins']:
                     if plugin:
                         plugin_path = self.get_file('plugins/' + plugin + '/' + plugin + '.js')
                         with open(plugin_path) as f:
@@ -113,7 +115,7 @@ class Barbacoa():
         if hasattr(sys, '_MEIPASS'):
             os.chdir(sys._MEIPASS)
             filename = sys._MEIPASS + '/' + filename
-        return filename
+        return os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
 
 
 if __name__ == '__main__':

@@ -1,4 +1,5 @@
-CONFIG = {
+locals()['self'].CONFIG = {
+
     "dimensions": {
         "width": 450,
         "height": 250
