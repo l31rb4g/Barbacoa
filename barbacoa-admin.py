@@ -22,12 +22,12 @@ class BarbacoaAdmin():
             os.popen("sed -i 's/bbqpath = None/bbqpath = \"" + path + "\"/' " + self.project_root + '/manage.py')
 
             shutil.copyfile(self.barbacoa_root + '/bbqlib/config.py', self.project_root + '/config.py')
-            print('[Barbacoa] New Barbacoa project created on ' + self.project_root)
 
 
 if __name__ == '__main__':
 
     if len(sys.argv) > 1:
+        project_root = os.path.abspath(os.path.curdir)
         bbq = BarbacoaAdmin()
 
         if sys.argv[1] == 'create':
@@ -37,10 +37,12 @@ if __name__ == '__main__':
                 name = raw_input()
             os.mkdir(name)
             bbq.create(os.path.abspath(name))
+            print('[Barbacoa] New Barbacoa project created on ' + project_root)
 
         elif sys.argv[1] == 'init':
             name = os.path.abspath(os.path.curdir)
             bbq.create(name)
+            print('[Barbacoa] New Barbacoa project initiated on ' + project_root)
 
         else:
             print('Unknown command: ' + sys.argv[1])
