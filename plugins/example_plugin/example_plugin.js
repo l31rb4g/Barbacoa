@@ -1,8 +1,8 @@
 new Barbacoa.Plugin({
 
-    get_ip: function(){
-        var my_ip = this.execute('ExamplePlugin', 'get_my_ip');
-        return my_ip;
+    get_python_version: function(){
+        var version = this.execute('ExamplePlugin', 'get_version');
+        return version;
     }
 
 });

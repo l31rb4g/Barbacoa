@@ -2,7 +2,7 @@ window.$_BBQ = {
 
     sw: 1,
 
-    response: true,
+    response: '[BarbacoaError]',
 
     request: function(action, params, callback){
         if (!params) params = [];
@@ -32,7 +32,7 @@ window.Barbacoa = {
         map.plugin = $_BBQ.plugin_being_registred;
         map.execute = function(className, method, args){
             $_BBQ.request('execute-plugin', [map.plugin, className, method, args]);
-            return $_BBQ.response;
+            return $_BBQ.getResponse();
         };
         Barbacoa.Plugins[$_BBQ.plugin_being_registred] = map;
     },

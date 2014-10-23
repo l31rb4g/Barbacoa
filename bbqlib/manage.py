@@ -18,5 +18,12 @@ if __name__ == '__main__':
             project_root = os.path.abspath(os.path.dirname(__file__))
             Barbacoa(project_root)
 
+        elif sys.argv[1] == 'build':
+
+            if len(sys.argv) > 2:
+                if sys.argv[2] == 'linux':
+                    params = ''
+                    print(os.popen('build.sh ' + params).read())
+
         else:
             print('Unknown command: ' + sys.argv[1])

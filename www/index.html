@@ -11,12 +11,12 @@
 
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas blandit ut velit et elementum. Etiam efficitur augue hendrerit, aliquam lectus eget, semper nibh. Aliquam erat volutpat. Duis nec mauris augue. Nullam egestas tristique turpis in elementum.</p>
 
-<p>My IP: <span id="my_ip"></span></p>
+<p>Python version: <span id="py_version"></span></p>
 
 <script type="text/javascript">
 BarbacoaReady = function(){
-    var my_ip = Barbacoa.Plugins.example_plugin.get_ip();
-    document.getElementById('my_ip').innerHTML = my_ip;
+    var version = Barbacoa.Plugins.example_plugin.get_python_version();
+    document.getElementById('py_version').innerHTML = version;
 };
 </script>
 
