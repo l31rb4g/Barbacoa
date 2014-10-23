@@ -40,5 +40,4 @@ if __name__ == '__main__':
 
         elif sys.argv[1] == 'init':
             name = os.path.basename(os.path.abspath(os.path.curdir))
-            print(name)
             bbq.create(name)
