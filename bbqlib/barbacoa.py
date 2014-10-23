@@ -41,7 +41,8 @@ class Barbacoa():
         for plugin in self.CONFIG['plugins']:
             plugin = str(plugin)
             if plugin:
-                self.plugins[plugin] = __import__('plugins.' + plugin + '.' + plugin, globals(), locals(), '*', -1)
+                #self.plugins[plugin] = __import__('plugins.' + plugin + '.' + plugin, globals(), locals(), '*', -1)
+                execfile(self.project_root + '/plugins/' + plugin + '/' + plugin + '.py', globals(), locals())
 
         self.view.connect(self.view, QtCore.SIGNAL("loadFinished(bool)"), self.ready)
         self.view.connect(self.view, QtCore.SIGNAL("urlChanged(QUrl)"), self.handle_request)

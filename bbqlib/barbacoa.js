@@ -26,7 +26,7 @@ window.Barbacoa = {
 
     version: 0.1,
 
-    plugins: {},
+    Plugins: {},
 
     Plugin: function(map){
         map.plugin = $_BBQ.plugin_being_registred;
@@ -34,7 +34,7 @@ window.Barbacoa = {
             $_BBQ.request('execute-plugin', [map.plugin, className, method, args]);
             return $_BBQ.response;
         };
-        Barbacoa.plugins[$_BBQ.plugin_being_registred] = map;
+        Barbacoa.Plugins[$_BBQ.plugin_being_registred] = map;
     },
 
     File: {
