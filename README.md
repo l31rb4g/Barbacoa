@@ -1,7 +1,7 @@
 Barbacoa
 ------------
 
-Create desktop applications using HTML5 and Javascript
+Create desktop applications using HTML5 and Javascript.
 
 
 API
