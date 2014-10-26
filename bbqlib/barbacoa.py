@@ -91,7 +91,17 @@ class Barbacoa():
                             self.execute('$_BBQ.plugin_being_registred = "' + plugin + '"')
                             self.execute(js)
 
-            elif action == 'execute-plugin':
+            elif action == 'execute-plugin-method':
+                klass = getattr(self.plugins[params[0]], params[1])
+                instance = klass()
+                method = getattr(instance, params[2])
+                if not params[3]:
+                    params[3] = []
+                r = method(*params[3])
+                self.respond(r)
+
+            #TODO
+            elif action == 'execute-plugin-method-async':
                 klass = getattr(self.plugins[params[0]], params[1])
                 instance = klass()
                 method = getattr(instance, params[2])

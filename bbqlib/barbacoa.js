@@ -31,8 +31,11 @@ window.Barbacoa = {
     Plugin: function(map){
         map.plugin = $_BBQ.plugin_being_registred;
         map.execute = function(className, method, args){
-            $_BBQ.request('execute-plugin', [map.plugin, className, method, args]);
+            $_BBQ.request('execute-plugin-method', [map.plugin, className, method, args]);
             return $_BBQ.getResponse();
+        };
+        map.execute_async = function(className, method, args, callback){
+            $_BBQ.request('execute-plugin-method-async', [map.plugin, className, method, args], callback);
         };
         Barbacoa.Plugins[$_BBQ.plugin_being_registred] = map;
     },
