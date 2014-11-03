@@ -37,7 +37,7 @@ if __name__ == '__main__':
                 name = raw_input()
             os.mkdir(name)
             bbq.create(os.path.abspath(name))
-            print('[Barbacoa] New Barbacoa project created on ' + project_root + '/' + name)
+            print('[Barbacoa] New Barbacoa project created on ' + os.path.abspath(name))
 
         elif sys.argv[1] == 'init':
             name = os.path.abspath(os.path.curdir)
